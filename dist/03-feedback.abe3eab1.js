@@ -566,52 +566,57 @@ var _lodash = _interopRequireDefault(require("lodash.throttle"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var STORAGE_KEY = 'feedback-form-state';
+// const form = document.querySelector('.feedback-form')
+// form.addEventListener('input', throttle(onFormInput, 500))
+// form.addEventListener('submit', onFormSubmit)
+// populateForm()
+// // приводим массив введенных данных к строке
+// function onFormInput() {
+//   const formDataStringified = JSON.stringify({ email: form.email.value, message: form.message.value })
+//   localStorage.setItem('feedback-form-state', formDataStringified)
+// }
+// //выводим сообщение пользователю если не заполнен email или message
+// function onFormSubmit(e) {
+//   e.preventDefault()//запрещаем перезагрузку страницы
+//   if (e.target.email.value === '' || e.target.message.value === '') {
+//     alert('Please enter your email')
+//     return
+//   }
+//   console.log({ email: form.email.value, message: form.message.value })
+//   e.currentTarget.reset()
+//   localStorage.removeItem('feedback-form-state')
+// }
+// // приводим строку введенных данных к массиву и получаем ключ из хранилища
+// function populateForm() {
+//   const storageValueParsed = JSON.parse(localStorage.getItem('feedback-form-state'))
+//   if (storageValueParsed) {
+//     form.email.value = storageValueParsed.email
+//     form.message.value = storageValueParsed.message
+//   }
+// }
 var form = document.querySelector('.feedback-form');
-form.addEventListener('input', (0, _lodash.default)(onFormInput, 500));
 form.addEventListener('submit', onFormSubmit);
-populateForm();
-
-function onFormInput() {
-  // const formData = {}
-  // formData[e.target.name] = e.target.value
-  var formData = {
-    email: form.email.value,
-    message: form.message.value
-  };
-  var formDataStringified = JSON.stringify(formData);
-  localStorage.setItem(STORAGE_KEY, formDataStringified);
-}
+form.addEventListener('input', (0, _lodash.default)(onTextareaInput, 200));
+populateTextarea();
 
 function onFormSubmit(e) {
   e.preventDefault();
-
-  if (e.target.email.value === '') {
-    alert('Please enter your email');
-    return;
-  }
-
-  if (e.target.message.value === '') {
-    alert('Please type your message');
-    return;
-  }
-
-  var formDataSubmit = {
-    email: form.email.value,
-    message: form.message.value
-  };
-  console.log(formDataSubmit);
   e.currentTarget.reset();
-  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem('feedback-form-state');
 }
 
-function populateForm() {
-  var storageValue = localStorage.getItem(STORAGE_KEY);
-  var storageValueParsed = JSON.parse(storageValue);
+function onTextareaInput() {
+  var formDataStringified = JSON.stringify({
+    email: form.email.value,
+    message: form.message.value
+  });
+  localStorage.setItem('feedback-form-state', formDataStringified);
+}
 
-  if (storageValueParsed) {
-    form.email.value = storageValueParsed.email;
-    form.message.value = storageValueParsed.message;
+function populateTextarea() {
+  if (JSON.parse(localStorage.getItem('feedback-form-state'))) {
+    form.email.value = JSON.parse(localStorage.getItem('feedback-form-state')).email;
+    form.message.value = JSON.parse(localStorage.getItem('feedback-form-state')).message;
   }
 }
 },{"lodash.throttle":"../node_modules/lodash.throttle/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -642,7 +647,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59194" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60423" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

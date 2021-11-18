@@ -3116,16 +3116,15 @@ var _player = _interopRequireDefault(require("@vimeo/player"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var CURRENT_TIME = 'videoplayer-current-time';
 var player = new _player.default(document.querySelector('#vimeo-player'));
 player.on('timeupdate', (0, _lodash.default)(onPlay, 1000));
 
-if (localStorage.getItem(CURRENT_TIME)) {
-  player.setCurrentTime(Number.parseFloat(localStorage.getItem(CURRENT_TIME)));
+if (localStorage.getItem('videoplayer-current-time')) {
+  player.setCurrentTime(Number.parseFloat(localStorage.getItem('videoplayer-current-time')));
 }
 
 function onPlay(event) {
-  localStorage.setItem(CURRENT_TIME, event.seconds === event.duration ? 0 : event.seconds);
+  localStorage.setItem('videoplayer-current-time', event.seconds === event.duration ? 0 : event.seconds);
 }
 },{"lodash.throttle":"../node_modules/lodash.throttle/index.js","@vimeo/player":"../node_modules/@vimeo/player/dist/player.es.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -3155,7 +3154,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59194" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60423" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
